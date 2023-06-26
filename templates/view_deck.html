@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<div id="app">
+		<h1 style="margin-bottom: 50px">Deck: { deck.name } </h1>
+		<h2 style="margin-bottom: 25px">Cards:</h2>
+		<table border="solid 1px black" cellpadding="5px" style="margin-bottom: 25px">
+			<tr>
+				<th>Question</th>
+				<th>Answer</th>
+				<th>Last Score</th>
+				<th>Last Reviewed</th>
+				<th>Difficulty Level</th>
+				<th>Manage Card</th>
+			</tr>
+			<tr v-for="card,id in cards" :key="id">
+				<td>{ card.question }</td>
+				<td>{ card.answer }</td>
+				<td>{ card.last_score }</td>
+				<td>{ card.last_reviewed }</td>
+				<td>{ card.difficulty }</td>
+				<td>
+					<button class="btn btn-danger" type="submit" @click="deleteCard(card)">Delete</button>
+				</td>
+			</tr>
+			<tr>
+				<td>{ card.question }</td>
+				<td>{ card.answer }</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		<div>
+			<form @submit.prevent="createCard" style="margin-bottom: 50px">
+				<div class="form-group row">
+					<h4>Create a new card</h4>
+					<div class="col-auto" style="float:left;">
+						<label for="question">Question</label>
+						<input type="text" class="form-control" name="question" v-model="card.question" required>
+					</div>
+					<div class="col-auto" style="float:left;">
+						<label for="answer">Answer</label>
+						<input type="text" class="form-control" name="answer" v-model="card.answer" required>
+					</div>
+					<div class="col-auto mt-auto">
+						<button class="btn btn-primary" type="submit">Create Card</button>
+					</div>
+				</div>
+			</form>
+			<div>
+				<a class="btn btn-warning" v-bind:href="'/dashboard'" role="button">Go Back</a>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{{ url_for('static', filename='view_deck.js') }}"></script>
+{% endblock %}

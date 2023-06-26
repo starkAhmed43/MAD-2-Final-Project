@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<div id="app">
+		<h1 style="margin-bottom: 25px">Dashboard</h1>
+		<div style="margin-bottom: 50px">
+			<table border="solid 1px black" cellpadding="5px" style="margin-bottom: 25px">
+				<tr>
+					<th>Deck Name</th>
+					<th>Last reviewed</th>
+					<th>Last Score</th>
+					<th>Manage Deck</th>
+				</tr>
+				<tr v-for="deck,id in decks" :key="id">
+					<td><a class="btn btn-primary" v-bind:href="'/deck/'+ deck.id" role="button">{ deck.name }</a></td>
+					<td>{ deck.last_reviewed }</td>
+					<td>{ deck.total_score }</td>
+					<td>
+						<a class="btn btn-warning" v-bind:href="'/deck'+ deck.id + '/review'" role="button">Review</a>
+						<button class="btn btn-danger" type="submit" @click="deleteDeck(deck)">Delete</button>
+					</td>
+				</tr>
+				<tr>
+					<td>{ deck.name }</td>
+					<td>{ deck.last_reviewed }</td>
+					<td>{ deck.total_score }</td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<div style="margin-bottom: 50px">
+			<form @submit.prevent="createDeck">
+				<div class="form-group row">
+					<div class="col-auto">
+						<label for="name">Deck Name:</label>
+						<input type="text" class="form-control" name="name" v-model="deck.name" required>
+					</div>
+					<div class="col-auto mt-auto">
+						<button class="btn btn-primary" type="submit">Create Deck</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div style="margin-bottom: 20px">
+			<a class="btn btn-primary" v-bind:href="'/exportCSV'" role="button">Export User Data</a>
+		</div>
+		<div style="margin-bottom: 10px">
+			<a class="btn btn-danger" v-bind:href="'/logout'" role="button">Logout</a>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{{ url_for('static', filename='dashboard.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div id="app">
+		<h1>Register:</h1>
+		<form method="POST">
+			<div class="mt-5">
+				Email:<input type="email" name="email">
+				Password:<input type="password" name="password">
+			</div>
+			<button class="btn btn-success mx-auto mt-5" type="submit">Submit</button>
+		</form>
+	</div>
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{{ url_for('static', filename='register.js') }}"></script>
+{% endblock %}

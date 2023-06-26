@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<div id="app">
+		<h1>Review Deck {deck.name}</h1>
+		<div class="col-6 mt-5">
+			<div class="card mb-3" v-for="card, id in cards" :key="id">
+				<div class="card-body row justify-content-between px-4" >
+					<h5 style="margin-bottom:10px"> Question: { card.question }</h5>
+					<div >
+						<input type="radio" name="difficulty" value="Easy" @click="setDifficulty(card,'easy')">
+						<label>Easy</label>
+					</div>
+					<div>
+						<input type="radio" name="difficulty" value="Medium" @click="setDifficulty(card,'medium')">
+						<label>Medium</label>
+					</div>
+					<div>
+						<input type="radio" name="difficulty" value="Difficult" @click="setDifficulty(card,'difficult')">
+						<label>Difficult</label>
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-success" type="submit" @click="submitReview">Submit Answers</button>
+			<a class="btn btn-danger" v-bind:href="'/dashboard'" role="button">Cancel</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block js %}
+	<script type="text/javascript" src="{{ url_for('static', filename='review_deck.js') }}"></script>
+{% endblock %}
